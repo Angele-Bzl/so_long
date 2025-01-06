@@ -1,0 +1,8 @@
+*.out
+*.o
+*.a
+*.txt
+.editorconfig
+trash/
+.vscode/
+so_long
