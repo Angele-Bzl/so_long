@@ -6,62 +6,68 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:16:42 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/06 16:21:15 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:37:07 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdio.h>
 
-// static char	*ft_strnjoin(char *old_line, char const *buf, int size)
-// {
-// 	char	*str;
-// 	int		i;
-// 	int		j;
+int	count_exit(char *map)
+{
+	int	i;
+	int	count;
 
-// 	str = malloc(sizeof (char) * (slen(old_line) + size + 1));
-// 	if (!str || !buf)
-// 	{
-// 		free(old_line);
-// 		return (NULL);
-// 	}
-// 	i = 0;
-// 	while (old_line && old_line[i])
-// 	{
-// 		str[i] = old_line[i];
-// 		i++;
-// 	}
-// 	j = 0;
-// 	while (buf[j] && j < size)
-// 	{
-// 		str[i + j] = buf[j];
-// 		j++;
-// 	}
-// 	str[i + j] = '\0';
-// 	clear_line(old_line);
-// 	return (str);
-// }
+	i = 0;
+	count = 0;
+	while (map[i])
+	{
+		if (map[i] == 'E')
+			count++;
+		i++;
+	}
+	return (count);
+}
 
-// char	*set_up_map(int fd)
-// {
-// 	char	*map;
+/*convert the .ber file into a character string*/
+char	*set_up_map(char *map)
+{
+	int		fd;
+	char	*str;
+	char	*tmp;
 
-// 	map = ft_strnjoin(map, get_next_line(fd), 1);
-// 	if (!map_ok(map))
-// 	{
-// 		ft_putstr_fd("Error\nPlease send a valid map.\n", 2);
-// 		exit (0);
-// 	}
-// 	return (map);
-// }
+	fd = open (map, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("Error\nCheck file input.", ERROR);
+		exit(ERROR);
+	}
+	str = "";
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (tmp == NULL)
+			break;
+		str = ft_strjoin(str, tmp);
+		if (!str)
+		{
+			ft_putstr_fd("Error\nMalloc failed.", ERROR);
+			exit(ERROR);
+		}
+	}
+	close(fd);
+	return (str);
+}
 
-void	print_map(char *map, void *param)
+/*displays the map to the window (param)*/
+int	print_map(char *map, void *param)
 {
 	t_my_img	t;
-	t_win	*test;
-	int	i = 0;
-	int	len;
-	int	n_x = 0 ;
-	int	n_y = 0;
+	t_win		*test;
+	int			i = 0;
+	int			len;
+	int			n_x = 0 ;
+	int			n_y = 0;
 
 	test = param;
 	len = ft_strlen(map);
@@ -83,9 +89,15 @@ void	print_map(char *map, void *param)
 			n_x = -32;
 			n_y += 32;
 		}
+        else
+        {
+            ft_putstr_fd("Error\nUnknown character in map.", ERROR);
+            return (0);
+        }
 		if (map[i] != '\n')
 			mlx_put_image_to_window(t.win.mlx_ptr, t.win.win_ptr, t.img_ptr, n_x, n_y);
 		n_x += 32;
 		i++;
 	}
+	return (1);
 }

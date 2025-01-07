@@ -6,7 +6,7 @@
 #    By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 16:11:34 by abarzila          #+#    #+#              #
-#    Updated: 2025/01/06 16:31:41 by abarzila         ###   ########.fr        #
+#    Updated: 2025/01/07 12:18:17 by abarzila         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,9 @@ MLXFLAGS	=	-lX11 -lXext
 #####################################################
 SRC			=	main.c \
 				utils.c\
-				set_up_map.c
+				set_up_map.c\
+				map_check.c\
+				move.c
 
 HEADERS		=	so_long.h \
 				$(DMLX)/mlx.h \
