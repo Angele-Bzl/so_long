@@ -6,130 +6,129 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:18:08 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/07 16:38:03 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/21 08:19:53 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#include <stdio.h>
-
-static void	go_right(t_win *solong, int count)
+static void	go_right(t_my_img *img, int count)
 {
 	int	i;
 
 	i = 0;
-	while (solong->map[i] && solong->map[i] != 'P')
+	while (img->win.map[i] && img->win.map[i] != 'P')
 		i++;
-	if (solong->map[i + 1] != '1')
+	if (img->win.map[i + 1] != '1')
 	{
-		if (solong->map[i + 1] == 'E' && count == 0)
-			close_window(solong);
-		if (!count_char(solong->map, 'E'))
-			solong->map[i] = 'E';
+		if (img->win.map[i + 1] == 'E' && count == 0)
+			close_window(img);
+		if (!count_char(img->win.map, 'E'))
+			img->win.map[i] = 'E';
 		else
-			solong->map[i] = '0';
-		solong->map[i + 1] = 'P';
+			img->win.map[i] = '0';
+		img->win.map[i + 1] = 'P';
 	}
-	if (!print_map(solong->map, solong))
-		exit(ERROR);
+	if (!print_map(img->win, img->win.map, img))
+		exit_error(img);
 }
 
-static void	go_left(t_win *solong, int count)
+static void	go_left(t_my_img *img, int count)
 {
 	int	i;
 
 	i = 0;
-	while (solong->map[i] && solong->map[i] != 'P')
+	while (img->win.map[i] && img->win.map[i] != 'P')
 		i++;
-	if (solong->map[i - 1] != '1')
+	if (img->win.map[i - 1] != '1')
 	{
-		if (solong->map[i - 1] == 'E' && count == 0)
-			close_window(solong);
-		if (!count_char(solong->map, 'E'))
-			solong->map[i] = 'E';
+		if (img->win.map[i - 1] == 'E' && count == 0)
+			close_window(img);
+		if (!count_char(img->win.map, 'E'))
+			img->win.map[i] = 'E';
 		else
-			solong->map[i] = '0';
-		solong->map[i - 1] = 'P';
+			img->win.map[i] = '0';
+		img->win.map[i - 1] = 'P';
 	}
-	if (!print_map(solong->map, solong))
-		exit(ERROR);
+	if (!print_map(img->win, img->win.map, img))
+		exit_error(img);
 }
 
-static void	go_up(t_win *solong, int count)
+static void	go_up(t_my_img *img, int count)
 {
-	int	i;
+	int		i;
 	size_t	len;
 
 	i = 0;
 	len = 0;
-	while (solong->map[i] != '\n')
+	while (img->win.map[i] != '\n')
 	{
 		len++;
 		i++;
 	}
-	while (solong->map[i] && solong->map[i] != 'P')
+	while (img->win.map[i] && img->win.map[i] != 'P')
 		i++;
-	if (solong->map[i - (len + 1)] != '1')
+	if (img->win.map[i - (len + 1)] != '1')
 	{
-		if (solong->map[i - (len + 1)] == 'E' && count == 0)
-			close_window(solong);
-		if (!count_char(solong->map, 'E'))
-			solong->map[i] = 'E';
+		if (img->win.map[i - (len + 1)] == 'E' && count == 0)
+			close_window(img);
+		if (!count_char(img->win.map, 'E'))
+			img->win.map[i] = 'E';
 		else
-			solong->map[i] = '0';
-		solong->map[i - (len + 1)] = 'P';
+			img->win.map[i] = '0';
+		img->win.map[i - (len + 1)] = 'P';
 	}
-	if (!print_map(solong->map, solong))
-		exit(ERROR);
+	if (!print_map(img->win, img->win.map, img))
+		exit_error(img);
 }
 
-static void	go_down(t_win *solong, int count)
+static void	go_down(t_my_img *img, int count)
 {
-	int	i;
+	int		i;
 	size_t	len;
 
 	i = 0;
 	len = 0;
-	while (solong->map[i] != '\n')
+	while (img->win.map[i] != '\n')
 	{
 		len++;
 		i++;
 	}
-	while (solong->map[i] && solong->map[i] != 'P')
+	while (img->win.map[i] && img->win.map[i] != 'P')
 		i++;
-	if (solong->map[i + (len + 1)] != '1')
+	if (img->win.map[i + (len + 1)] != '1')
 	{
-		if (solong->map[i + (len + 1)] == 'E' && count == 0)
-			close_window(solong);
-		if (!count_char(solong->map, 'E'))
-			solong->map[i] = 'E';
+		if (img->win.map[i + (len + 1)] == 'E' && count == 0)
+			close_window(img);
+		if (!count_char(img->win.map, 'E'))
+			img->win.map[i] = 'E';
 		else
-			solong->map[i] = '0';
-		solong->map[i + (len + 1)] = 'P';
+			img->win.map[i] = '0';
+		img->win.map[i + (len + 1)] = 'P';
 	}
-	if (!print_map(solong->map, solong))
-		exit(ERROR);
+	if (!print_map(img->win, img->win.map, img))
+		exit_error(img);
 }
 
-int	read_keys(int key_pressed, void *param)
+int	read_keys(int key, t_my_img *param)
 {
-	t_my_img	t;
-	t_win		*solong;
 	int			count;
 
-	solong = param;
-	count = count_char(solong->map, 'C');
-	t = new_img(300, 300, *solong);
-	if (key_pressed == XK_Escape)
-		close_window(solong);
-	else if (key_pressed == XK_Right)
-		go_right(solong, count);
-	else if (key_pressed == XK_Left)
-		go_left(solong, count);
-	else if (key_pressed == XK_Up)
-		go_up(solong, count);
-	else if (key_pressed == XK_Down)
-		go_down(solong, count);
+	count = count_char(param->win.map, 'C');
+	if (key == XK_Escape)
+		close_window(param);
+	else
+	{
+		param->step += 1;
+		ft_printf("steps : %d\n", param->step);
+		if (key == XK_Right || key == XK_d)
+			go_right(param, count);
+		if (key == XK_Left || key == XK_a)
+			go_left(param, count);
+		if (key == XK_Up || key == XK_w)
+			go_up(param, count);
+		if (key == XK_Down || key == XK_s)
+			go_down(param, count);
+	}
 	return (0);
 }

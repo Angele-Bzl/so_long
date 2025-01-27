@@ -6,7 +6,7 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:28:34 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/07 16:36:16 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/21 08:50:59 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include "minilibx_linux/mlx.h"
-# include "minilibx_linux/mlx_int.h"
+# include "minilibx/mlx.h"
+# include "minilibx/mlx_int.h"
 # include "libft/libft.h"
+# include "printf/ft_printf.h"
 
-# define ENTER 65293
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
 # define ERROR 2
+# define PX_SIZE 32
+# define SPACE "textures/blue.xpm"
+# define WALL "textures/gate_green.xpm"
+# define PLAY "textures/player.xpm"
+# define COL "textures/dog_purple.xpm"
+# define EXIT "textures/exit.xpm"
 
 /*structure of a window*/
 typedef struct s_win
@@ -42,30 +44,35 @@ typedef struct s_my_img
 {
 	t_win		win;
 	void		*img_ptr;
-	char		*addr;
 	int			h;
 	int			w;
-	int			bpp;
-	int			endian;
-	int			line_len;
+	int			step;
+	int			exit_status;
 }				t_my_img;
 
-/*structure of a pixel's square*/
-typedef struct s_square
-{
-	unsigned short int	x;
-	unsigned short int	y;
-	unsigned short int	size;
-	int					color;
-}						t_square;
-
+/*set_up_struct.c*/
 t_win		new_program(char *str, char *map);
-t_my_img	new_img(int w, int h, t_win window);
-int			read_keys(int key_pressed, void *param);
-int			close_window(void *param);
-int			print_map(char *map, void *param);
-char		*set_up_map(char *map);
-int			map_ok(char *map);
+void		set_up_img(t_my_img *img);
+/*utils.c*/
+int			find_char(char *map, char c);
 int			count_char(char *map, char c);
+/*exit.c*/
+void		free_window(t_win *param);
+int			close_window(t_my_img *img);
+void		exit_error(t_my_img *img);
+/*move.c*/
+int			read_keys(int key_pressed, t_my_img *t);
+/*set_up_map.c*/
+int			print_map(t_win wi, char *map, t_my_img *t);
+/*extract_map.c*/
+char		*set_up_map(char *map);
+/*map_check_0.c*/
+int			map_ok(char *map);
+/*map_check_1*/
+int			check_one_e(char *map, char exit);
+int			check_one_p(char *map, char person);
+int			check_min_c(char *map, char collect);
+/*flood_fill.c*/
+void		flood_fill(char *flood, int target);
 
 #endif

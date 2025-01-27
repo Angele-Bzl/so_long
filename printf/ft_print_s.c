@@ -1,45 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_print_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/03 09:01:47 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/20 17:12:29 by abarzila         ###   ########.fr       */
+/*   Created: 2024/11/28 10:33:42 by abarzila          #+#    #+#             */
+/*   Updated: 2024/11/28 17:13:17 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
 
-/*return the number of occurence of the chosen character*/
-int	count_char(char *map, char c)
+void	print_s(va_list arg, int *count)
 {
-	int	i;
-	int	count;
+	char	*s;
 
-	i = 0;
-	count = 0;
-	while (map[i])
+	s = va_arg(arg, char *);
+	if (!s)
 	{
-		if (map[i] == c)
-			count++;
-		i++;
+		ft_putstr_fd("(null)", 1);
+		*count += 6;
+		return ;
 	}
-	return (count);
-}
-
-/*return 1 if the chosen character has been found*/
-int	find_char(char *map, char c)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		if (map[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
+	ft_putstr_fd(s, 1);
+	*count += ft_strlen(s);
 }
