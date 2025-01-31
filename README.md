@@ -1,6 +1,6 @@
 # So_long
 ## and thanks for all the dogs !
-***This project was a first step into graphic display and use of the `minilibx` [(mlx)](https://harm-smits.github.io/42docs/libs/minilibx/introduction.html) library, that allows to do basic rendering on screens.***
+*This project was a first step into graphic display and use of the `minilibx` [(mlx)](https://harm-smits.github.io/42docs/libs/minilibx/introduction.html) library, that allows to do basic rendering on screens.*
 
 ![screenshot of the game where you can see the player and few dogs to save from the shelter](https://i.ibb.co/V08MBNzK/Screenshot-from-2025-01-31-13-17-47.png)
 
