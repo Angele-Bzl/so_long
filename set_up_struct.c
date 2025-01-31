@@ -6,7 +6,7 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:12:13 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/21 09:42:45 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:22:34 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	set_up_img(t_my_img *img)
 	img->img_ptr = NULL;
 	img->w = 0;
 	img->h = 0;
-	img->step = -1;
+	img->step = 0;
 	img->exit_status = 0;
 }

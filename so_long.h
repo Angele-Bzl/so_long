@@ -6,7 +6,7 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:28:34 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/21 08:50:59 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:30:01 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		set_up_img(t_my_img *img);
 /*utils.c*/
 int			find_char(char *map, char c);
 int			count_char(char *map, char c);
+void		skip_line(t_my_img *img, int *i, size_t *len);
 /*exit.c*/
 void		free_window(t_win *param);
 int			close_window(t_my_img *img);

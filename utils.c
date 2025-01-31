@@ -6,7 +6,7 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 09:01:47 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/20 17:12:29 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:29:48 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,13 @@ int	find_char(char *map, char c)
 		i++;
 	}
 	return (0);
+}
+
+void	skip_line(t_my_img *img, int *i, size_t *len)
+{
+	while (img->win.map[*i] != '\n')
+	{
+		(*len)++;
+		(*i)++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: abarzila <abarzila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:18:08 by abarzila          #+#    #+#             */
-/*   Updated: 2025/01/21 08:19:53 by abarzila         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:29:24 by abarzila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	go_right(t_my_img *img, int count)
 	}
 	if (!print_map(img->win, img->win.map, img))
 		exit_error(img);
+	img->step += 1;
+	ft_printf("steps : %d\n", img->step);
 }
 
 static void	go_left(t_my_img *img, int count)
@@ -52,6 +54,8 @@ static void	go_left(t_my_img *img, int count)
 	}
 	if (!print_map(img->win, img->win.map, img))
 		exit_error(img);
+	img->step += 1;
+	ft_printf("steps : %d\n", img->step);
 }
 
 static void	go_up(t_my_img *img, int count)
@@ -61,11 +65,7 @@ static void	go_up(t_my_img *img, int count)
 
 	i = 0;
 	len = 0;
-	while (img->win.map[i] != '\n')
-	{
-		len++;
-		i++;
-	}
+	skip_line(img, &i, &len);
 	while (img->win.map[i] && img->win.map[i] != 'P')
 		i++;
 	if (img->win.map[i - (len + 1)] != '1')
@@ -80,6 +80,8 @@ static void	go_up(t_my_img *img, int count)
 	}
 	if (!print_map(img->win, img->win.map, img))
 		exit_error(img);
+	img->step += 1;
+	ft_printf("steps : %d\n", img->step);
 }
 
 static void	go_down(t_my_img *img, int count)
@@ -89,11 +91,7 @@ static void	go_down(t_my_img *img, int count)
 
 	i = 0;
 	len = 0;
-	while (img->win.map[i] != '\n')
-	{
-		len++;
-		i++;
-	}
+	skip_line(img, &i, &len);
 	while (img->win.map[i] && img->win.map[i] != 'P')
 		i++;
 	if (img->win.map[i + (len + 1)] != '1')
@@ -108,19 +106,19 @@ static void	go_down(t_my_img *img, int count)
 	}
 	if (!print_map(img->win, img->win.map, img))
 		exit_error(img);
+	img->step += 1;
+	ft_printf("steps : %d\n", img->step);
 }
 
 int	read_keys(int key, t_my_img *param)
 {
 	int			count;
 
-	count = count_char(param->win.map, 'C');
 	if (key == XK_Escape)
 		close_window(param);
 	else
 	{
-		param->step += 1;
-		ft_printf("steps : %d\n", param->step);
+		count = count_char(param->win.map, 'C');
 		if (key == XK_Right || key == XK_d)
 			go_right(param, count);
 		if (key == XK_Left || key == XK_a)
